@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f8f8f8;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: darkblue;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.nav-link:hover {
+    color: red;
+}
+
+.highlight {
+    color: orange;
+    font-weight: bold;
+}
+
+#snowboarding-heading {
+    color: darkgreen;
+    text-decoration: underline;
+}
+
+#skiing-page {
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
