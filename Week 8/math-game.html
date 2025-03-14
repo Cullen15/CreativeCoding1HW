@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Math Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #game-container {
+            margin-top: 30px;
+        }
+        input {
+            padding: 8px;
+            font-size: 16px;
+            width: 80px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        #score {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Math Game</h1>
+    <nav>
+        <a href="index.html" class="nav-link">Home</a> |
+        <a href="snowboarding.html" class="nav-link">Snowboarding</a> |
+        <a href="skiing.html" class="nav-link">Skiing</a> |
+        <a href="contact.html" class="nav-link">Contact</a> |
+        <a href="math-game.html" class="nav-link">Math Game</a>
+    </nav>
+
+    <div id="game-container">
+        <p id="question">Loading question...</p>
+        <input type="number" id="answer" placeholder="Your answer">
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="score">Score: 0 / 0</p>
+    </div>
+
+    <script>
+        let correctAnswers = 0;
+        let totalQuestions = 0;
+        let num1, num2, correctResult;
+        const maxQuestions = 3; // Now only 3 questions
+
+        function generateQuestion() {
+            if (totalQuestions === maxQuestions) {
+                let percentage = Math.round((correctAnswers / maxQuestions) * 100);
+                document.getElementById("game-container").innerHTML = `<h2>You got ${percentage}% correct!</h2>`;
+                return;
+            }
+
+            num1 = Math.floor(Math.random() * 10) + 1;
+            num2 = Math.floor(Math.random() * 10) + 1;
+            correctResult = num1 + num2;
+
+            document.getElementById("question").innerText = `What is ${num1} + ${num2}?`;
+            document.getElementById("answer").value = "";
+            document.getElementById("answer").focus();
+        }
+
+        function checkAnswer() {
+            let userAnswer = parseInt(document.getElementById("answer").value, 10);
+            
+            if (!isNaN(userAnswer)) {
+                totalQuestions++;
+                if (userAnswer === correctResult) {
+                    correctAnswers++;
+                }
+                document.getElementById("score").innerText = `Score: ${correctAnswers} / ${totalQuestions}`;
+                generateQuestion();
+            } else {
+                alert("Please enter a valid number.");
+            }
+        }
+
+        generateQuestion(); // Start the game
+    </script>
+
+</body>
+</html>
