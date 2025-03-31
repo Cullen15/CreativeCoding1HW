@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .error {
+            border: 2px solid red;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <nav>
+        <a href="index.html" class="nav-link">Home</a> |
+        <a href="snowboarding.html" class="nav-link">Snowboarding</a> |
+        <a href="skiing.html" class="nav-link">Skiing</a> |
+        <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="container">
+        <form id="contactForm" class="mt-3">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" id="name" name="name" class="form-control">
+                <div class="error-message" id="nameError"></div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" id="email" name="email" class="form-control">
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="message" class="form-label">Message:</label>
+                <textarea id="message" name="message" rows="4" class="form-control"></textarea>
+                <div class="error-message" id="messageError"></div>
+            </div>
+
+            <div class="mb-3">
+                <input type="checkbox" id="terms" name="terms">
+                <label for="terms">I agree to the terms and conditions</label>
+                <div class="error-message" id="termsError"></div>
+            </div>
+
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            let isValid = true;
+
+            // Helper function to show error
+            function showError(fieldId, message) {
+                let field = document.getElementById(fieldId);
+                let errorField = document.getElementById(fieldId + "Error");
+                field.classList.add("error");
+                errorField.textContent = message;
+                if (isValid) {
+                    field.focus();
+                }
+                isValid = false;
+            }
+
+            // Clear previous errors
+            document.querySelectorAll(".error").forEach(e => e.classList.remove("error"));
+            document.querySelectorAll(".error-message").forEach(e => e.textContent = "");
+
+            // Validate Name
+            let name = document.getElementById("name").value.trim();
+            if (name === "") {
+                showError("name", "Name is required.");
+            }
+
+            // Validate Email
+            let email = document.getElementById("email").value.trim();
+            if (email === "") {
+                showError("email", "Email is required.");
+            }
+
+            // Validate Message
+            let message = document.getElementById("message").value.trim();
+            if (message === "") {
+                showError("message", "Message cannot be empty.");
+            }
+
+            // Validate Terms Agreement
+            let terms = document.getElementById("terms").checked;
+            if (!terms) {
+                showError("terms", "You must agree to the terms.");
+            }
+
+            // Stop form submission if invalid
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+</html>
